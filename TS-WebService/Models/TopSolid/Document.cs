@@ -12,11 +12,21 @@ namespace TS_WebService.Models.TopSolid
         {
             DocumentObject = _doc;
             Name = TopSolidHost.Documents.GetName(DocumentObject);
+            Elements = new List<ElementItem>();
+            //IsPart = 
+            //Shape = new Shapes(new ElementId(Document, 0));
+
+            foreach (ElementId element in TopSolidHost.Elements.GetElements(DocumentObject))
+            {
+                Elements.Add(new ElementItem(element));
+            }
         }
 
         public DocumentId DocumentObject { get; private set; }
 
         public string Name{get;set;}
+        public List<ElementItem> Elements { get; private set; }
+
         public PdmMinorRevisionId MinorRevisionId
         {
             get

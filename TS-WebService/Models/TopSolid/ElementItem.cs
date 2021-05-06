@@ -17,22 +17,30 @@ namespace TS_WebService.Models.TopSolid
             Properties = TopSolidHost.Elements.GetProperties(_el);
             FriendlyName = TopSolidHost.Elements.GetFriendlyName(_el);
             FullName = TopSolidHost.Elements.GetTypeFullName(_el);
+            Edge = new List<ElementItemId>();
+            Faces = new List<Face>();
+            try
+            {
+                Edge = TopSolidHost.Shapes.GetEdges(_el);
+                foreach (ElementItemId Face in TopSolidHost.Shapes.GetFaces(_el))
+                {
+                    Faces.Add(new Face(Face));
+                }
+            }
+            catch 
+            {
 
-            Edge = TopSolidHost.Shapes.GetEdges(_el);
+                
+            }
 
 
 
 
-            //Faces = new List<Face>();
-            //foreach (ElementItemId Face in TopSolidHost.Shapes.GetFaces(_el))
-            //{
-            //    Faces.Add(new Face(Face));
-            //}
+
+
+
             typeG = TopSolidHost.Geometries3D.GetGeometryType(_el).ToString();
-            //}catch
-            //{
-
-            //}
+            
 
             Constituents = new List<ElementItem>();
             foreach (ElementId Constituent in TopSolidHost.Elements.GetConstituents(_el))
@@ -46,8 +54,8 @@ namespace TS_WebService.Models.TopSolid
         public List<string> Properties { get; private set; }
         public string FriendlyName { get; private set; }
         public string FullName { get; private set; }
-        public List<global::TopSolid.Kernel.Automating.ElementItemId> Edge { get; private set; }
-        //public List<Face> Faces { get; private set; }
+        public List<ElementItemId> Edge { get; private set; }
+        public List<Face> Faces { get; private set; }
         public string typeG { get; private set; }
         public List<ElementItem> Constituents { get; private set; }
     }
