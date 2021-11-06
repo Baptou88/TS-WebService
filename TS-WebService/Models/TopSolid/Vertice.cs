@@ -14,9 +14,11 @@ namespace TS_WebService.Models.TopSolid
             //coord = TopSolidHost.Geometries3D.GetPointGeometry(_id);
             coord = TopSolidHost.Shapes.GetVertexPoint(_id);
             TypeGeometry = TopSolidHost.Geometries3D.GetGeometryType(_id.ElementId);
-             
+            
         }
         public Point3D coord { get; set; }
         public GeometryType TypeGeometry { get; private set; }
+
+        
     }
 }

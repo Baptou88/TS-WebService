@@ -7,6 +7,7 @@ using TS_WebService.Models.TopSolid;
 
 namespace TS_WebService.Controllers
 {
+    //[Route("[controller]/[action]")]
     public class ProjectController : ApiController
     {
         private PdmObjectId pobject;
@@ -19,6 +20,10 @@ namespace TS_WebService.Controllers
             }
         }
         // GET: api/Project
+        /// <summary>
+        /// Gets some very important data from the server.
+        /// </summary>
+        //[Route("Project/")]
         public IHttpActionResult Get()
         {
             List<PdmObject>PdmObjects = new List<PdmObject>();
@@ -29,29 +34,43 @@ namespace TS_WebService.Controllers
             return Json(PdmObjects);
         }
 
-        // GET: api/Project/5
-        [HttpGet]
-        public IHttpActionResult Get([FromBody]Class1 r,string id)
+        /// <summary>
+        /// Looks up some data by ID.
+        /// </summary>
+        /// <param name="id">The ID of the data.</param>
+        [HttpPost]
+        //[Route("Project/{id}")]
+        public IHttpActionResult PostDoc(MyTestClass er)
         {
+            var ipdmobject = new PdmObject(new PdmObjectId(er.id));
+            return Json(ipdmobject);
+        }
+        
+        [HttpGet]
+        //[Route("api/project/search/{name}")]
+        public IHttpActionResult Search(string name)
+        {
+            List<PdmObject> projets= new List<PdmObject>();
             try
             {
-                pobject = TopSolidHost.Pdm.GetProject(new PdmObjectId(id));
+                
+                //pobject = TopSolidHost.Pdm.GetProject(new PdmObjectId(name));
+                
+                
+                foreach(PdmObjectId projet in TopSolidHost.Pdm.SearchProjectByName(name))
+                {
+                    projets.Add(new PdmObject(projet));
+                }
             }
             catch (Exception e)
 
             {
                 return Json(e);
             }
-            return Json(pobject);
+            return Json(projets);
         }
 
-        [HttpPost]
         
-        public IHttpActionResult PostDoc(MyTestClass er)
-        {
-            var ipdmobject = new PdmObject(new PdmObjectId(er.id)); 
-            return Json(ipdmobject);
-        }
         //// POST: api/Project
         //public void Post([FromBody]string value)
         //{

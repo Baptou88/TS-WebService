@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // l’ensemble d’attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
 [assembly: AssemblyTitle("TS_WebService")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Webservice pour TopSolid V7")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("TS_WebService")]

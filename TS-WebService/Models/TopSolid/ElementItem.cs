@@ -17,11 +17,15 @@ namespace TS_WebService.Models.TopSolid
             Properties = TopSolidHost.Elements.GetProperties(_el);
             FriendlyName = TopSolidHost.Elements.GetFriendlyName(_el);
             FullName = TopSolidHost.Elements.GetTypeFullName(_el);
-            Edge = new List<ElementItemId>();
+            Edges = new List<Edge>();
             Faces = new List<Face>();
             try
             {
-                Edge = TopSolidHost.Shapes.GetEdges(_el);
+                
+                foreach (ElementItemId Ed in TopSolidHost.Shapes.GetEdges(_el))
+                {
+                    Edges.Add(new Edge(Ed));
+                }
                 foreach (ElementItemId Face in TopSolidHost.Shapes.GetFaces(_el))
                 {
                     Faces.Add(new Face(Face));
@@ -54,7 +58,7 @@ namespace TS_WebService.Models.TopSolid
         public List<string> Properties { get; private set; }
         public string FriendlyName { get; private set; }
         public string FullName { get; private set; }
-        public List<ElementItemId> Edge { get; private set; }
+        public List<Edge> Edges { get; private set; }
         public List<Face> Faces { get; private set; }
         public string typeG { get; private set; }
         public List<ElementItem> Constituents { get; private set; }
